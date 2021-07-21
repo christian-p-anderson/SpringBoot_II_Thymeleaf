@@ -13,7 +13,14 @@ public class GreetingController {
         model.put("message", "Hello Christian");
         return "greeting";
     }
-    //When we ask for the URL/greeting the greeting method is called | it will put the "message" in the model
-    //then the return line will have the app go look for a .jsp page called greeting (those are the 2 variables we put
-    //in our application.properties file
+    /* When we ask for the URL/greeting the greeting method is called | it will put the "message" in the model
+    then the return line will have the app go look for a .jsp page called greeting (those are the 2 variables we put
+    in our application.properties file
+     */
+
+    @GetMapping("thyme")
+    public String thyme(Map<String, Object> model) {
+        model.put("message", "Hello Thymeleaf");
+        return "thyme";
+    }
 }
