@@ -62,12 +62,21 @@ public class ConferenceConfig implements WebMvcConfigurer {
         InternalResourceViewResolver bean = new InternalResourceViewResolver();
         bean.setPrefix("/WEB-INF/jsp/");
         bean.setSuffix(".jsp");
-        bean.setOrder(0);
+        bean.setOrder(1);
         return bean;
     }
     /* the bean above shows everything that is setup when we use @SpringBootApplication in the
     ConferenceApplication.java class
      */
+
+    @Bean
+    public ViewResolver thymeleafResolver() {
+        ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
+        viewResolver.setTemplateEngine(templateEngine());
+        viewResolver.setOrder(0);
+        return viewResolver;
+    }
+    /* the bean above takes which ever template was loaded and returns that just based off the name */
 
     @Bean
     public SpringResourceTemplateResolver templateResolver() {
@@ -89,13 +98,4 @@ public class ConferenceConfig implements WebMvcConfigurer {
     /* unique to thymeleaf is that we have to create a Spring Template Engine that will process the pages and
     substitute in the model values from Spring into our pages to be displayed
      */
-
-    @Bean
-    public ViewResolver thymeleafResolver() {
-        ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
-        viewResolver.setTemplateEngine(templateEngine());
-        viewResolver.setOrder(0);
-        return viewResolver;
-    }
-    /* the bean above takes which ever template was loaded and returns that just based off the name */
 }
