@@ -12,6 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 
 import java.util.Locale;
@@ -76,4 +77,15 @@ public class ConferenceConfig implements WebMvcConfigurer {
         return templateResolver;
     }
     /* the bean above tells where to locate the template files and how they should be resolved */
+
+    @Bean
+    public SpringTemplateEngine templateEngine() {
+        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+        templateEngine.setTemplateResolver(templateResolver());
+        templateEngine.setEnableSpringELCompiler(true);
+        return templateEngine;
+    }
+    /* unique to thymeleaf is that we have to create a Spring Template Engine that will process the pages and
+    substitute in the model values from Spring into our pages to be displayed
+     */
 }
